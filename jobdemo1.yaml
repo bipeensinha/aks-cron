@@ -1,0 +1,16 @@
+#kubectl apply -f jobdemo1.yaml
+# kubectl get all < To see the jobs create and pod> # RUN THIS IN SEPERATE TERMINAL
+# kubectl delete pod <podname> 
+# EVENN IF WE DELETE JOB BEFORE 60 SEC POD WILL CREATE AGAIN 
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: helloworld
+spec:
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: [ "sleep", "60" ]
+      restartPolicy: Never

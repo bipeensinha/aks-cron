@@ -1,0 +1,19 @@
+# Restrict job to run only for 10 sec
+#kubectl apply -f jobdemo6.yaml
+# kubectl get all < To see the jobs create and pod>
+# kubectl describe job helloworld | less   # Run it after 5 min 
+# kubectl delete job helloworld 
+# EVENN IF WE DELETE JOB BEFORE 60 SEC POD WILL CREATE AGAIN 
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: helloworld
+spec:
+  activeDeadlineSeconds: 10 # in sec
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: [ "sleep", "60" ]
+      restartPolicy: Never

@@ -1,0 +1,23 @@
+# Suspending the cron job for invenstigation
+#kubectl apply -f Cronjobdemo.yaml
+# kubectl get all < To see the jobs create and pod>
+# kubectl patch cronjob helloworld-cron -p '{"spec":{"suspend":true}}'
+#kubectl logs <pod>
+#kubectl describe cronjob helloworld-cron | less
+# kubectl delete cronjob helloworld-cron
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: helloworld-cron
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      suspend: true
+      template:
+        spec:
+          containers:
+          - name: busybox
+            image: busybox
+            command: ["echo", "Hello Kubernetes!!!"]
+          restartPolicy: Never

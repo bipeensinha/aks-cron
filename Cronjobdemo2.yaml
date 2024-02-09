@@ -1,0 +1,24 @@
+# successfulJobsHistoryLimit
+#kubectl apply -f Cronjobdemo.yaml
+# kubectl get all < To see the jobs create and pod>
+#kubectl logs <pod>
+#kubectl describe cronjob helloworld-cron | less
+# kubectl delete cronjob helloworld-cron
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: helloworld-cron
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      successfulJobsHistoryLimit: 5
+      failedJobsHistoryLimit: 5
+      template:
+        spec:
+          containers:
+          - name: busybox
+            image: busybox
+            command: ["echo", "Hello Kubernetes!!!"]
+          restartPolicy: Never

@@ -1,0 +1,20 @@
+# PARLLERISM AND INTRATION
+#kubectl apply -f jobdemo3.yaml
+# kubectl get all < To see the jobs create and pod>
+# kubectl describe job helloworld | less
+# kubectl delete job helloworld 
+# EVENN IF WE DELETE JOB BEFORE 60 SEC POD WILL CREATE AGAIN 
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: helloworld
+spec:
+  completions: 2
+  parallelism: 2
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["echo", "Hello Kubernetes!!!"]
+      restartPolicy: Never

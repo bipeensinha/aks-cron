@@ -1,0 +1,18 @@
+# Fail the container
+#kubectl apply -f jobdemo4.yaml
+# kubectl get all < To see the jobs create and pod>
+# kubectl describe job helloworld | less
+# kubectl delete job helloworld 
+# EVENN IF WE DELETE JOB BEFORE 60 SEC POD WILL CREATE AGAIN 
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: helloworld
+spec:
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["ls", "/bipeen"] # Since there is no directlry name bipeen in Busybox container with  Fail and exit with status 0
+      restartPolicy: Never
